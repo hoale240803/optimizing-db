@@ -9,6 +9,7 @@ Partitioning is a powerful technique in SQL Server that enhances query performan
 ## **Part 1: Basic Partitioning Strategies**
 
 ### **Problem: Performance Issues with Large Tables**
+
 Without partitioning, querying large tables results in full table scans, leading to slow performance. Index maintenance is also costly, and archiving data requires complex operations.
 
 ### **Applying Partitioning (Range Strategy)**
@@ -32,7 +33,9 @@ CREATE TABLE Orders (
 ```
 
 ### **Proof of Improvement**
+
 #### **Comparing Execution Plans**
+
 Execute:
 
 ```sql
@@ -44,6 +47,7 @@ SET STATISTICS IO OFF;
 Observe reduced I/O operations and faster query execution.
 
 ### **Final Thought**
+
 Partitioning simplifies data management, but what happens when the partitioned range reaches its limit? How does this compare with Oracle’s Interval Partitioning or PostgreSQL’s Native Partitioning?
 
 ---
@@ -51,9 +55,11 @@ Partitioning simplifies data management, but what happens when the partitioned r
 ## **Part 2: Advanced Partitioning Strategies (Combining Range, List, and Hash)**
 
 ### **Problem: Need for Multi-Level Data Organization**
+
 A single-level partitioning strategy might not be enough. What if we need to distribute data across both date and transaction types?
 
 ### **Applying Multi-Level Partitioning**
+
 #### **Example: Banking Transactions Table**
 
 ```sql
@@ -77,9 +83,11 @@ CREATE TABLE BankingTransactions (
 ```
 
 ### **Proof of Improvement**
+
 With proper indexing, SQL Server can efficiently locate data using multiple partition keys, reducing scanning time.
 
 ### **Final Thought**
+
 What are the trade-offs of using multiple partitioning strategies? How does SQL Server’s multi-level partitioning compare to Oracle’s Composite Partitioning?
 
 ---
@@ -87,9 +95,11 @@ What are the trade-offs of using multiple partitioning strategies? How does SQL 
 ## **Part 3: Automating Partition Management**
 
 ### **Problem: Human Errors in Manual Partitioning**
+
 DBAs often forget to create new partitions, leading to data insertion failures.
 
 ### **Applying Automation**
+
 To automate partition creation:
 
 ```sql
@@ -105,9 +115,11 @@ END;
 ```
 
 ### **Proof of Improvement**
+
 This script ensures partitions are automatically created without manual intervention, reducing human errors.
 
 ### **Final Thought**
+
 How can automation be extended to handle partition merging and data archiving? How does PostgreSQL’s partition automation compare?
 
 ---
@@ -115,6 +127,7 @@ How can automation be extended to handle partition merging and data archiving? H
 ## **Part 4: Partitioning vs. Sharding**
 
 ### **Problem: Choosing Between Partitioning and Sharding**
+
 Developers often confuse partitioning with sharding. When should we use one over the other?
 
 ### **Comparison Table**
@@ -126,6 +139,7 @@ Developers often confuse partitioning with sharding. When should we use one over
 | Performance Boost | Yes          | Scales better |
 
 ### **Example Queries**
+
 Partitioning:
 
 ```sql
@@ -140,6 +154,7 @@ SELECT * FROM Shard2.dbo.Orders WHERE OrderDate >= '2023-01-01';
 ```
 
 ### **Final Thought**
+
 When should we transition from partitioning to sharding? How does Azure SQL Hyperscale handle partitioning vs. sharding?
 
 ---
@@ -147,9 +162,11 @@ When should we transition from partitioning to sharding? How does Azure SQL Hype
 ## **Part 5: Indexing with Partitioning**
 
 ### **Problem: Indexing Partitioned Tables**
+
 A poorly indexed partitioned table can negate performance benefits.
 
 ### **Applying Indexing**
+
 #### **Creating an Aligned Index**
 
 ```sql
@@ -163,9 +180,11 @@ CREATE NONCLUSTERED INDEX idx_OrderDate ON Orders (OrderDate);
 ```
 
 ### **Proof of Improvement**
+
 Aligned indexes ensure queries remain efficient by minimizing partition scans.
 
 ### **Final Thought**
+
 Should all indexes be aligned? How does PostgreSQL handle partitioned indexes differently?
 
 ---
